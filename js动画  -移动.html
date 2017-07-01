@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo1</title>
+	<style type="text/css">
+	*{margin:0;padding: 0;}
+	#small{
+		height: 60px;width: 30px;background-color: #CC4E4E;margin-top: 140px;
+	}
+	#box{
+		 height: 200px;width: 200px;background-color: #EBD475;
+	}
+	#div{
+		height: 200px;width: 230px;position: absolute;left: -200px;
+	}
+	span{
+		display: block;
+		float: left;
+	}
+	</style>
+</head>
+<body>
+<div class="div" id="div">
+	
+	<span class="box" id="box"> </span>
+	<span id="small">分享</span>
+</div>
+<script type="text/javascript">
+var small = document.getElementById('small');
+var div = document.getElementById('div');
+	
+	
+div.onmouseover = function(){
+	settime(0);
+	
+}
+div.onmouseout = function(){
+	settime(-200);
+}
+var timer = null;
+function settime(target){
+	clearInterval(timer);
+	timer = setInterval(function(){	
+		//缓冲运动
+		var speed = (target-div.offsetLeft)/20;
+		speed = speed>0?Math.ceil(speed):Math.floor(speed);
+		if (div.offsetLeft == target) {
+			clearInterval(timer);
+		}else{			
+			div.style.left =div.offsetLeft+ speed+"px";
+		}
+	},30);
+}
+
+
+
+
+</script>
+	
+</body>
+</html>

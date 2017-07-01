@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo2</title>
+	<style type="text/css">
+	*{margin:0;padding: 0;}
+	#div{
+		height: 300px;
+		width: 300px;
+		background-color: #333;
+	}
+	</style>
+</head>
+<body>
+<div id="div" style="opacity: 0.8"></div>
+<script type="text/javascript">
+var div = document.getElementById('div');
+div.onmouseover = function(){
+	settime(-0.05,0.3);
+	
+}
+div.onmouseout = function(){
+	settime(0.05,1);
+}
+var timer = null;
+function settime(speed,target){
+	clearInterval(timer);
+	timer = setInterval(function(){		
+		if (div.style.opacity == target) {			
+			clearInterval(timer);
+		}else{		
+			var num = div.style.opacity*100+speed*100;
+			div.style.opacity =  num/100;
+		}
+	},30);
+}
+</script>
+	
+</body>
+</html>
