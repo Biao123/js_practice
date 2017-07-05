@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>间歇性无缝滚动</title>
+	<style type="text/css">
+	*{margin:0;padding:0;}
+	#box{height: 180px;width: 300px;border:1px solid #C84444;overflow: hidden;}
+	ul li{list-style-type: none}
+	ul{width: 300px;height:300px;}
+	li{height: 30px;width: 100%;line-height: 30px;text-align: center;}
+	</style>
+</head>
+<body>
+<div id="box">
+ <ul id="ul1">
+ 	<li>人民日报111111</li>
+	<li>南方周末222222</li>
+	<li>法制日报333333333</li>
+	<li>中国青年报444444</li>
+	 <li>新京报555555555</li>
+	<li>香港文汇报666666</li>
+	<li>中国共产党网777777</li>
+	<li>光明网888888888</li>
+	<li>华商网9999999999</li>
+	<li>大河报00000000</li>	   
+ </ul>
+ <ul id="ul2"></ul>
+</div>
+<script type="text/javascript">
+	var box = document.getElementById('box');
+	var ul1 = document.getElementById('ul1');
+	var ul2 =  document.getElementById('ul2');
+ 	ul2.innerHTML = ul1.innerHTML;
+ 	box.scrollTop = 0;
+	var timer =  setInterval(	"scorllBox()",10);
+	box.onmouseover = function(){
+		clearInterval(timer);
+	}
+	box.onmouseout = function(){
+		timer = setInterval( "scorllBox()",10);
+	}
+	function scorllBox(){
+ 		if (box.scrollTop>=ul1.scrollHeight) {
+			box.scrollTop = 0;
+		}else{
+			box.scrollTop ++;
+		}
+	}	
+</script>
+	
+</body>
+</html>
