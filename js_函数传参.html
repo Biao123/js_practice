@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js_函数传参</title>
+	<style type="text/css">
+	div{
+		height: 100px;width: 100px;background-color: #C16D6D;margin-top: 10px;
+		display: none;
+	}
+	</style>
+
+
+</head>
+<body>
+<button onclick="fn('box1');">第一个按钮</button>
+<button onclick="fn('box2');">第二个按钮</button>
+<button onclick="fn('box3');">第三个按钮</button>
+<button onclick="fn('box4');">第四个按钮</button>
+<div id="box1"></div>
+<div id="box2"></div>
+<div id="box3"></div>
+<div id="box4"></div>
+<script type="text/javascript">
+ function fn(obj){
+ 	var target = document.getElementById(obj);
+ 	target.style.display = "block";
+ }
+</script>	
+</body>
+</html>
