@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js滚动</title>
+	<style type="text/css">
+	.box{height: 300px;width: 600px;border:1px solid #080707;}
+	</style>
+</head>
+<body>
+<!-- <marquee> 知识点
+1. behavior 滚动方式：
+				alternate:两端来回滚动
+				scroll:一端滚动到另一端，重复
+				slide:一端滚动到另一端，不会重复
+2.direction 滚动的方向  up down left right
+3.loop 滚动的次数 默认-1  一直滚下去
+4.scrollamount  滚动速度
+5.scrolldelay 滚动延迟
+			-->
+
+<div class="box">
+	<dl>
+		<dt>文字滚动实例（默认）</dt>
+		<dd><marquee >我默认向左滚</marquee></dd>
+	</dl>
+	<dl>
+		<dt>文字滚动实例（向右）</dt>
+		<dd><marquee direction = "right" scrolldelay="3" >我向右滚动。。。。</marquee></dd>
+	</dl>
+	<dl>
+		<dt>文字滚动实例（默认方向，滚动方式为alternate，循环3次，速度为2）</dt>
+		<dd><marquee scrollamount="2" hehavior="alternate" loop="3" >我来回滚动</marquee></dd>
+	</dl>
+	<dl>
+		<dt>文字滚动实例（向上，背景色为#CCFF66，设置了背景宽度和高度）</dt>
+		<dd><marquee direction = "up" bgcolor="#CCFF66" width="250" height="55" >我在区域内滚动，向上</marquee></dd>
+	</dl>
+</div>
+	
+</body>
+</html>
