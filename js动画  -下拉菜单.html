@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>下拉菜单</title>
+	<style type="text/css">
+	*{margin:0;padding: 0;}
+	#select{height: 30px;width: 200px; }
+	#body{background: url(img/1.jpg) ;}
+	</style>
+</head>
+<body id="body">
+<select id="select">
+	<option value="1">哇啦啦</option>
+	<option value="2">垃圾</option>
+	<option value="3">嫌弃</option>
+</select>
+<script type="text/javascript">
+var select = document.getElementById('select');
+var body = document.getElementById('body');
+select.onchange = function(){
+	
+	switch(this.value){
+		case "1":
+		body.style.background = "url(img/1.jpg)";
+		break;
+		case "2":
+		body.style.background = "url(img/2.jpg)";
+		break;
+		case "3":
+		body.style.background = "url(img/3.jpg)";
+		break;	
+	}
+}
+</script>
+	
+</body>
+</html>
