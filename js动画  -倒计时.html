@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>倒计时</title>
+	<style type="text/css">
+	body{
+		text-align: center;
+		font-size: 30px;
+		color: red;
+	}
+	</style>
+	<script type="text/javascript">
+	window.onload = function(){
+		var demo = document.getElementById('demo');
+		var endTime = new Date("2017/7/20 18:24:00");
+		 setInterval(clock,1000);
+
+		 function clock(){
+		 	var nowTime = new Date();
+		 	var second = parseInt((endTime.getTime() - nowTime.getTime())/1000);// 获取秒数
+		 	var d = parseInt(second/3600/24) ;//  second/3600 小时数  /24  天数
+		 	var h = parseInt(second/3600%24);
+		 	var m = parseInt(second/60%60);
+		 	var s = parseInt(second%60);
+
+		 	d<10 ? d="0"+d :d;
+		 	h<10 ? h="0"+h :h;
+		 	m<10 ? m="0"+m :m;
+		 	s<10 ? s="0"+s :s;
+
+		 	demo.innerHTML = "距离目标到达还有"+d+"天"+h+"小时"+m+"分"+s+"秒";
+
+		 }
+	}
+	</script>
+</head>
+<body>
+<div id="demo"></div>
+	
+</body>
+</html>
