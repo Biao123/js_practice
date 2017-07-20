@@ -24,12 +24,44 @@
             border-bottom:1px dashed #ccc;
             margin-left: 80px;
         }
+        .box li a {
+        	float: right;
+        }
     </style>
+    <script type="text/javascript">
+    	window.onload = function(){
+    		var btn = document.getElementsByTagName('button')[0];
+    		var txt = document.getElementsByTagName('textarea')[0];
+    		var ul = document.createElement('ul');
+    		btn.parentNode.appendChild(ul);
+    		btn.onclick = function(){
+    			if (txt.value == "") {
+    				alert("输入不能为空");
+    				return false; //终止函数执行
+    			}
+    			var newli = document.createElement('li');
+    			newli.innerHTML = txt.value + "<a href ='javascript:;'>删除</a>";
+    			ul.appendChild(newli);
+    			txt.value = "";
+
+    			var lis = ul.children;//获取ul里的li
+    			if (lis.length == 0) {//第一次创建
+    				ul.appendChild(newli);//往后加
+    			}else{
+    				ul.insertBefore(newli,lis[0]);//创建newli放在lis[0]的前面
+    			}
+
+    			var as = document.getElementsByTagName('a');
+    			for (var i = 0; i < as.length; i++) {
+    				as[i].onclick = function(){
+    					ul.removeChild(this.parentNode);//删除它的父元素
+    				}
+    			}
+    		}
+    	}
+    </script>
 </head>
 <body>
-<div class="box">
-    微博发布: <textarea name="" id="" cols="30" rows="10"></textarea>  <button>发布</button>
-</div>
 <div class="box">
     微博发布: <textarea name="" id="" cols="30" rows="10"></textarea>  <button>发布</button>
 </div>
