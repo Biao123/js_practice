@@ -225,7 +225,7 @@
 		9?: 
 		10 =、+=、-=、*=、/=、%=     赋值 
 
-	18几个面试题
+	18 几个面试题
  		1.  a&&b   结果是什么？  
 
 	 		如果a 为假 ，则返回 a   
@@ -255,21 +255,91 @@
 			%=  
 			 a+=3 
 			 a = a % 3;
-1.9 字符串对象常用方法
-我们工作中经常进行字符串操作。 
-1.9.1 转换为字符串
- 1. + “”       2+ “”  =  “2”    2+”ab”   =  “2ab” 
- 2. String()    转换为字符串 
- 3. toString（基数）  ;    基数就是进制  
- var txt = 10;
- txt.toString(2)       二进制      1010
-1.9.2 获取字符位置方法
-   charAt，获取相应位置字符（参数： 字符位置） 
-   charCodeAt获取相应位置字符unicode编码（参数： 字符位置）
-   var txt = “abcedf”;     
-   比如，  txt.charAt(4);    索引号一定是从0开始    返回的结果是 d
-   我们根据我们输入的 位数 返回相应的 字符 。
-   unicode编码  是我们字符的字符的唯一表示 。
+ 	19 字符串对象常用方法 
+		转换为字符串
+ 			1. + “”       2+ “”  =  “2”    2+”ab”   =  “2ab” 
+ 			2. String()    转换为字符串 
+ 			3. toString（基数）  ;    基数就是进制  
+
+			 	var txt = 10;
+			 	txt.toString(2)       二进制      1010
+		获取字符位置方法
+			charAt获取相应位置字符（参数:字符位置） 
+			charCodeAt获取相应位置字符unicode编码（参数:字符位置）
+
+				var txt = “abcedf”;     
+			   	比如，  txt.charAt(4);     d
+			  
+			unicode编码  是我们字符的字符的唯一表示 。
+	20  根据字符返回位置
+ 		1.indexOf(“字符”);它是从 前面开始数（从左边开始数）， 而且只找第一个， 然后返回改字符的位置， 索引号都是从0开始的。  返回的是个数值。
+
+			var txt = “abcdef”;
+			alert(txt.indexOf(“d”))      结果就是   3
+			如果找不到该字符   返回  -1   
+		2.lastIndexOf(参数：索引字符串)  从后面开始数    同上  
+
+			var  txt = “abcdef” ;
+			txt.lastIndexOf(“d”);     3   
+
+	21 网址编码 
+		我们知道一个网址 自己的网址，   不同页面也有自己id网址， 我们经常会做一些， 把网址送入到后台。  但是后台再处理的 不认识比如 换行啊 等特殊符号的  ？  
+		var url =  “http://www.itast.cn?name=cz”  
+		所以我们要实现编码，然后再传到后台。
+		encodeURIComponent() 函数可把字符串作为 URI 组件进行编码
+		decodeURIComponent() 函数可把字符串作为 URI 组件进行解码
+
+			var url = "http://www.itcast.cn?name=andy";
+			console.log(encodeURIComponent(url));  // 编码
+			var afterUrl = encodeURIComponent(url);
+			console.log(decodeURIComponent(afterUrl));  // 解码
+
+	22 操作字符串
+		1  concat() 连接字符串
+
+			var  txt1 = “abc”;
+			var  txt2 = ”123”;
+			console.log(txt1.concat(txt2));     “abc123”; 
+
+		2 slice(“取字符串的起始位置”, [结束位置]) ;    []  可选的  
+
+			var txt = “abcedf”;
+			txt.slice(3) ;    从 txt 里面字符的 第 3（索引号）个开始取   结束位置省略， 一直取到最后一个。 			
+			slice(3,6)     3 从 第3个开始 取     6  取到第6索引号的位置，还是从左边的第0个开始数。 但是不包 6 。
+			起始位置可以是负数  ， 如果是负数，则是从 右边往左边开始取。
+			var txt =”asdf”;
+			txt.slice(-1)  结果是   f  
+	23  substr(起始位置,[取的个数])  同上。  
+  		不写取的个数， 默认从起始位置一直取到最后 。
+  		取的个数：    是指从起始位置开始，往后面数几个。 
+
+			var txt = “abcdefghijk”;
+			txt.substr(3,4);从第3个  （d） 开始 数 4个  defg 
+			substr(-1)  少用   ie678 报错 。 尽量少用
+
+			兼容性的写法 ： 
+			onBtnClick("btn7",div1.substr(div1.length-1,1));  // 兼容的写法
+			substring 同slice  一样的   但是有一点不同 
+			substring(3,6)     
+			substring 始终会把  小的值作为  起始位置 大的值作为结束位置
+			例如：  substring(6,3)   实际中   自动变成  substring(3,6); 
+
+	24 122340.12345      保留两位有效小数  122340.12  
+  		substr(0, .+3)
+		1.console.log(str.substr(0,str.indexOf(".")+3));
+  			通过 indexOf  返回小数点的位置     截取字符串  
+		2 console.log(parseInt(PI*100) /100);
+      			先乘以100  取整  然后 除以100  
+ 		3 console.log(PI.toFixed(2));
+			pi.toFixed(2)  保留 2位 小数  
+
+	25 大小写转换
+		1 toUpperCase，转换为大写（参数： 无）
+		2 toLowerCase，转换为小写（参数：无）
+
+			asdf.toUpperCase()   结果就是：     ASDF
+			$("txt").value.toUpperCase();
+			把txt 的值 转换为大写  
 
 
 </body>
