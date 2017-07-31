@@ -1,0 +1,114 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>地狗购物网-网页定位导航效果</title>
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                var items = $("#content").find(".item");
+                var menu = $("#menu");
+                var top = $(document).scrollTop();
+                var currentId = ""; //滚动条现在所在位置的item id
+                items.each(function () {
+                    var m = $(this);
+                    //注意：m.offset().top代表每一个item的顶部位置
+                    if (top > m.offset().top - 300) {
+                        currentId = "#" + m.attr("id");
+                    } else {
+                        return false;
+                    }
+                });
+
+                var currentLink = menu.find(".current");
+                if (currentId && currentLink.attr("href") != currentId) {
+                    currentLink.removeClass("current");
+                    menu.find("[href=" + currentId + "]").addClass("current");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="menu">
+    <ul>
+        <li><a href="#item1" class="current"><img src="dingwei.png" class="icon-map-marker"> 宝贝</a></li>
+        <li><a href="#item2"><img src="dingwei.png" class="icon-map-marker">  评价</a></li>
+        <li><a href="#item3"><img src="dingwei.png" class="icon-map-marker"> 详情</a></li>
+    </ul>
+</div>
+<div id="content">
+    <div id="item1" class="item"> 
+        <div class="lunbotu"><img src="1F.jpg"></div>
+        <ul>
+            <li><a href="#"><img src="1F.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="1F.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="1F.jpg" alt=""/></a></li>
+       
+        </ul>
+    </div>
+    <div id="item2" class="item">    
+        <div class="add-comment">
+            <div class="add-comment-line"></div>
+            <div class="add-comment-word">评价</div>
+            <div class="add-comment-line"></div>
+        </div> 
+        <div class="comment-detail">
+            <div class="comment-people">
+                <img src="1F.jpg">
+                <div>XXX</div>
+            </div>
+            <div class="comment-word">
+                巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉巴拉 巴拉巴拉巴拉巴拉 巴拉巴拉巴拉巴拉 巴拉巴拉巴拉巴拉 巴拉巴拉巴拉巴拉        
+            </div>
+            <div class="comment-time">2017-5-14</div>
+        </div>
+        <div class="all-comment">
+            <a href="#"><div>查看全部评价</div></a>
+        </div>
+    </div>
+    <div id="item3" class="item">
+       <div class="add-comment">
+            <div class="add-comment-line"></div>
+            <div class="add-comment-word">详情</div>
+            <div class="add-comment-line"></div>
+        </div> 
+       
+        <ul>
+            <li><a href="#"><img src="3F.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="3F.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="3F.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="3F.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="3F.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="3F.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="3F.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="3F.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="3F.jpg" alt=""/></a></li>
+        </ul>
+    </div>
+
+</div>
+<script type="text/javascript">
+ $(document).ready(function () {
+    $(window).scroll(function () {
+        var num =$(document).scrollTop();
+        if ((num/1000) >0.5) {
+            $("#menu").css("display","block");
+            $("#menu").css("opacity",num/1000);
+        }else{
+            $("#menu").css("display","none");
+        }
+        console.log(num/1000);
+        
+        
+    })
+    
+
+ })
+</script>
+
+</body>
+</html>
