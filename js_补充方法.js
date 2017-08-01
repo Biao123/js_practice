@@ -324,7 +324,7 @@
 			substring 始终会把  小的值作为  起始位置 大的值作为结束位置
 			例如：  substring(6,3)   实际中   自动变成  substring(3,6); 
 
-	24 122340.12345      保留两位有效小数  122340.12  
+	24. 122340.12345      保留两位有效小数  122340.12  
   		substr(0, .+3)
 		1.console.log(str.substr(0,str.indexOf(".")+3));
   			通过 indexOf  返回小数点的位置     截取字符串  
@@ -333,13 +333,28 @@
  		3 console.log(PI.toFixed(2));
 			pi.toFixed(2)  保留 2位 小数  
 
-	25 大小写转换
+	25 .大小写转换
 		1 toUpperCase，转换为大写（参数： 无）
 		2 toLowerCase，转换为小写（参数：无）
 
 			asdf.toUpperCase()   结果就是：     ASDF
 			$("txt").value.toUpperCase();
 			把txt 的值 转换为大写  
+
+	26.缓冲动画
+		缓动动画公式:
+		一个盒子初始值  是  0      要走到 400 px 的位置  
+		假如说，初始值   leader  0          target  400
+		box.style.left =  xxxx +   “px”
+		leader = leader + (target - leader ) /10 ;
+		    
+		      btn.onclick = function() {
+		           setInterval(function(){
+		               leader = leader + (target - leader )/10;
+		               box.style.left = leader + "px";
+		           },30)
+		      }
+
 
 
 </body>
