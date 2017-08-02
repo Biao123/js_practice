@@ -354,6 +354,66 @@
 		               box.style.left = leader + "px";
 		           },30)
 		      }
+	27. offset家族
+		(1).offsetWidth    offsetHeight
+			offsetWidth =  width  + border  +  padding   
+			为什么不用 div.style.width   因为东西 只能得到行内的数值
+
+		(2). offsetLeft  offsetTop    
+			返回距离上级盒子（最近的带有定位）左边的位置 如果父级都没有定位则以body 为准 这里的父级指的是所有上一级 不仅仅指的是 父亲 还可以是 爷爷 曾爷爷 曾曾爷爷。。。。
+
+			offsetLeft 从父级的padding 开始算    父亲的border 不算
+			总结一下：  就是子盒子到定位的父盒子边框到边框的距离
+
+		(3).offsetParent  
+			返回改对象的父级 （带有定位） 不一定是亲的爸爸 前面学过一个返回父亲(亲的)    parentNode   有所区别
+
+			如果当前元素的父级元素没有进行CSS定位（position为absolute或relative），offsetParent为body。
+			如果当前元素的父级元素中有CSS定位（position为absolute或relative），offsetParent取最近的那个父级元素。
+
+		(4).offsetTop style.top 的区别
+			最大区别在于  offsetLeft  可以返回没有定位盒子的距离左侧的位置。 而 style.top 不可以  只有定位的盒子 才有 left  top right  
+			offsetTop 返回的是数字，而 style.top 返回的是字符串，除了数字外还带有单位：px。
+			offsetTop 只读，而 style.top 可读写。
+			如果没有给 HTML 元素指定过 top 样式，则 style.top 返回的是空字符串。
+			最重要的区别  style.left 只能得到 行内样式     offsetLeft 随便
+
+	28. 事件对象	
+		  var event = event || window.event; 
+
+		event 常见属性
+		属性节点作用
+		data			返回拖拽对象的URL字符串（dragDrop）
+		width			该窗口或框架的高度
+		height 		该窗口或框架的高度
+		pageX			光标相对于该网页的水平位置（ie无）
+		pageY			光标相对于该网页的垂直位置（ie无）
+		screenX		光标相对于该屏幕的水平位置
+		screenY		光标相对于该屏幕的垂直位置
+		target			该事件被传送到的对象
+		Type 			事件的类型
+		clientX		光标相对于该网页的水平位置 （当前可见区域）
+		clientY		光标相对于该网页的水平位置
+
+		screen X   screenY   
+		是以我们的电脑屏幕 为基准点   测量 
+		pageX  pageY   
+		以我们的  文档   （绝对定位）  的基准点 对齐       ie678 不认识  
+		clientX   clientY
+		以 可视区域 为基准点   类似于    固定定位  
+	29. 常用事件
+		onmouseover      onmouseout   onclick      
+		onmousemove    当鼠标移动的时候    就是说，鼠标移动一像素就会执行的事件
+		div.onmousemove = function() { 语句 }
+
+		onmouseup       当鼠标弹起   
+		onmousedown     当鼠标按下的时候  
+		
+		防止选择拖动
+		我们知道 按下鼠标然后拖拽可以选择文字 的。 
+		清除选中的内容 
+		window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+
 
 
 

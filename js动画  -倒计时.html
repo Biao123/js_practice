@@ -4,16 +4,19 @@
 	<meta charset="UTF-8">
 	<title>倒计时</title>
 	<style type="text/css">
-	body{
-		text-align: center;
-		font-size: 30px;
-		color: red;
-	}
+	#timing{height: 40px;width: 300px;text-align: center;font-size: 15px;border-radius: 5px;border:1px solid red;}
+	.timing-right{height: 100%;width: 50%;background-color: red;line-height: 40px;float: left;}
+	.timing-left{height: 100%;width: 50%;line-height: 40px;float: right;}
+	.timing-left span{color:red;}
+	.sent-goods{width: 100%;padding: 5px;font-size: 14px;}
+	.sent-goods-left{width: 50px;float: left;line-height: 20px;height: 20px;margin: 10px;background-color: green;text-align: center;color: #fff;}
+	.sent-goods-right{float: left;line-height: 18px;margin: 5px;}
 	</style>
 	<script type="text/javascript">
 	window.onload = function(){
-		var demo = document.getElementById('demo');
-		var endTime = new Date("2017/10/13 00:00:00");
+		var timing = document.getElementById('timing');
+		var timingLeft = timing.children[1];
+		var endTime = new Date("2017/9/30 14:32:00");
 		 setInterval(clock,1000);
 
 		 function clock(){
@@ -29,14 +32,24 @@
 		 	m<10 ? m="0"+m :m;
 		 	s<10 ? s="0"+s :s;
 
-		 	demo.innerHTML = "距离宝宝到达还有"+d+"天"+h+"小时"+m+"分"+s+"秒";
+		 	timingLeft.innerHTML = "<span>"+d+"</span>天<span>"+h+"</span>小时<span>"+m+"</span>分<span>"+s+"</span>秒";
 
 		 }
 	}
 	</script>
 </head>
 <body>
-<div id="demo"></div>
+<div id="timing">
+	<div class="timing-right">距离预售开始</div>
+	<div class="timing-left"></div>
+</div>
+<div class="sent-goods">
+	<div class="sent-goods-left">预售</div>
+	<div class="sent-goods-right">
+		结束时间：09月30日 14:32:00<br>
+		预计发货：购买后三天发货
+	</div>
+</div>
 	
 </body>
 </html>
