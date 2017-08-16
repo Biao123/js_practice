@@ -28,52 +28,38 @@
     <li><a href="javascript:;">4</a></li>
     <li><a href="javascript:;">5</a></li>
  </ul>
- <p class="p"></p>
+ <p class="p"></p >
 </body>
 </html>
 <script>
 var num=finalnum = tempnum= 0;
 var a= 0;
-var b = "您没有点评";
 var arr1 = ["您点评了一颗星","您点评了两颗星","您点评了三颗星","您点评了四颗星","您点评了五颗星"];
 
 var lis = document.getElementsByTagName("li");
-//num:传入点亮星星的个数
-//finalnum:最终点亮星星的个数
-//tempnum:一个中间值
 function fnShow(num) {
-    finalnum= num || tempnum;//如果传入的num为0，则finalnum取tempnum的值
+    finalnum= num || tempnum;
     for (var i = 0; i < lis.length; i++) {
-          lis[i].className = i < finalnum? "light" : "";//点亮星星就是加class为light的样式
+          lis[i].className = i < finalnum? "light" : "";
     }
 }
 
 for (var i = 1; i <= lis.length; i++) {
       lis[i-1].index = i;
-      lis[i-1].onmouseover = function() { //鼠标经过点亮星星。
+      lis[i-1].onmouseover = function() { 
 
-            fnShow(this.index);//传入的值为正，就是finalnum
-            a = $(".xing").children(".light").length;
+            fnShow(this.index);
+             a = $(".xing").children(".light").length;
              $(".p").text(arr1[a-1]);
 
-
-              this.onclick = function() { //鼠标点击,同时会调用onmouseout,改变tempnum值点亮星星
-
-                     tempnum= this.index;
-                     a = $(".xing").children(".light").length;
-                     $(".p").text(arr1[a-1]);
-                     b = arr1[a-1];
-              }
-
       }
 
-      lis[i-1].onmouseout = function() { //鼠标离开时星星变暗
-            fnShow(0);//传入值为0，finalnum为tempnum,初始为0
-            $(".p").text(b);
-          
-      }
+      lis[i-1].onmouseout = function() { 
+            fnShow(0);
 
-     
+      lis[i-1].onclick = function() { 
+            tempnum= this.index;
+      }
 }
 
 

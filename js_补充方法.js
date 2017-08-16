@@ -411,12 +411,272 @@
 		onmouseup       当鼠标弹起   
 		onmousedown     当鼠标按下的时候  
 		
-		防止选择拖动
+	30. 防止选择拖动
 		我们知道 按下鼠标然后拖拽可以选择文字 的。 
 		清除选中的内容 
 		window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
 
+	31. 	document.body.scrollTop;  火狐 和其他浏览器   
+  		document.documentElement.scrollTop;ie9+  和 最新浏览器   都认识
+  		window.pageXOffset;     pageYOffset  （scrollTop）
 
+  		document.body.scrollTop  没有DOCTYPE html头
+		 兼容性写法：  
+
+		 var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+
+	32. client 家族
+		client  可视区域    
+		offsetWidth:   width  +  padding  +  border     （披着羊皮的狼）  
+		clientWidth： width  +  padding      不包含border  
+		scrollWidth:   大小是内容的大小    
+
+
+	33.检测屏幕宽度(可视区域)
+		ie9及其以上的版本
+		window.innerWidth  
+		标准模式
+		document.documentElement.clientWidth
+		怪异模式 
+		document.body.clientWidth
+		自己封装一个 返回可视区宽度和高度的函数。
+
+	34. window.onresize    改变窗口事件  
+		window.onscroll  = function() {}  屏幕滚动事件 
+		window.onresize = function() {}  窗口改变事件 
+		onresize 事件会在窗口或框架被调整大小时发生 
+
+	35. 简单冒泡机制
+		事件冒泡: 当一个元素上的事件被触发的时候，比如说鼠标点击了一个按钮，同样的事件将会在那个元素的所有祖先元素中被触发。这一过程被称为事件冒泡；这个事件从原始元素开始一直冒泡到DOM树的最上层。
+			顺序
+			E 6.0: 
+			div -> body -> html -> document
+			其他浏览器: 
+			div -> body -> html -> document -> window
+
+			不是所有的事件都能冒泡。以下事件不冒泡：blur、focus、load、unload
+		 阻止冒泡的方法
+			 标准浏览器 和  ie浏览器  
+			 w3c的方法是event.stopPropagation()        proPagation  传播  传递 
+			 IE则是使用event.cancelBubble = true       bubble   冒泡  泡泡       cancel 取消 
+		兼容的写法： 
+		if(event && event.stopPropagation){
+		          event.stopPropagation();  //  w3c 标准
+		}else{
+		               event.cancelBubble = true;  // ie 678  ie浏览器
+		}
+
+	37. 判断当前对象
+	   火狐 谷歌 等   event.target.id   
+	   ie 678          event.srcElement.id    
+	   兼容性写法：  
+	  var targetId = event.target ? event.target.id : event.srcElement.id;	  
+	  targetId != "show"       
+  
+
+<!DOCTYPE html>
+	<html>
+   	<head lang="en">
+       	<meta charset="UTF-8">
+      	<title></title>
+      	<style>
+	          body {
+               height:2000px;
+           }
+           #mask {
+               width: 100%;
+               height: 100%;
+               opacity: 0.4;   /*半透明*/
+               filter: alpha(opacity = 40);  /*ie 6半透明*/
+               background-color: black;
+               position: fixed;
+               top: 0;
+               left: 0;
+	               display: none;
+          }
+           #show {
+              width: 300px;
+              height: 300px;
+              background-color: #fff;
+              position: fixed;
+              left: 50%;
+              top: 50%;
+               margin: -150px 0 0 -150px;
+               display: none;
+           }
+       </style>
+   </head>
+   <body>
+   <a href="javascript:;" id="login">注册</a>
+  <a href="javascript:;">登录</a>
+  <div id="mask"></div>
+  <div id="show"></div>
+  </body>
+  </html>
+  <script>
+      function $(id) { return document.getElementById(id);}
+      var login = document.getElementById("login");
+      login.onclick = function(event) {
+          $("mask").style.display = "block";
+           $("show").style.display = "block";
+           document.body.style.overflow = "hidden";  // 不显示滚动条
+           //取消冒泡
+           var event = event || window.event;
+           if(event && event.stopPropagation)
+           {
+              event.stopPropagation();
+           }
+           else
+           {
+               event.cancelBubble = true;
+           }
+       }
+       document.onclick = function(event) {
+   
+           var event = event || window.event;
+          // alert(event.target.id);  // 返回的是点击的某个对象的id 名字
+           // alert(event.srcElement.id);
+           var targetId = event.target ? event.target.id : event.srcElement.id;
+           // 看明白这个写法
+           if(targetId != "show")  // 不等于当前点点击的名字
+           {
+               $("mask").style.display = "none";
+               $("show").style.display = "none";
+               document.body.style.overflow = "visible"; // 显示滚动条
+           }
+       }
+   </script>
+
+1.4.4  选中之后，弹出层
+我们想，选中某些文字之后，会弹出一个弹出框
+这个和 我们前面讲过的拖拽有点不一样。
+拖拽  是拖着走。  拉着鼠标走 。
+选择文字：  这个弹出的层 选中的时候不出来，弹起鼠标的时候才出现 。
+ 所以这个的事件一定是  onmouseup  . 盒子显示而且盒子的位置 再  鼠标的 clientX  和 clientY 一模一样
+用来判断选择的文字： 
+1.4.5 获得用户选择内容
+window.getSelection()     标准浏览器
+document.selection.createRange().text;      ie 获得选择的文字
+兼容性的写法：
+if(window.getSelection)
+{
+    txt = window.getSelection().toString();   // 转换为字符串
+}
+else
+{
+    txt = document.selection.createRange().text;   // ie 的写法
+}
+综合代码:
+1   <!DOCTYPE html>
+2   <html>
+3   <head lang="en">
+4       <meta charset="UTF-8">
+5       <title></title>
+6       <style>
+7           div {
+8               width: 400px;
+9               margin:50px;
+10           }
+11           #demo {
+12               width: 100px;
+13               height: 100px;
+14               background-color: pink;
+15               position: absolute;
+16               top: 0;
+17               left: 0;
+18               display: none;
+19           }
+20       </style>
+21   </head>
+22   <body>
+23   <span id="demo"></span>
+24   <div id="test">我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字</div>
+25   <div id="another">
+26       我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字
+27   </div>
+28   </body>
+29   </html>
+30   <script>
+31       function $(id) {return document.getElementById(id)}
+32       $("test").onmouseup = function(event) {
+33           var event = event || window.event;
+34           var x = event.clientX;  //  鼠标的x坐标
+35           var y = event.clientY;  //  同理
+36           var txt;  // 用于存贮文字的变量
+37           if(window.getSelection)  // 获取我们选中的文字
+38           {
+39               txt = window.getSelection().toString();   // 转换为字符串
+40           }
+41           else
+42           {
+43               txt = document.selection.createRange().text;   // ie 的写法
+44           }
+45           if(txt)   // 所有的字符串都为真  "" 是假    所有的数字为真  0  为假
+46           {
+47               //看看有没有选中的文字，没有选中文字为空的，就不应该执行   点击一下鼠标 就是空的
+48               showBox(x,y,txt);  // 调用函数
+49           }
+50       }
+51       document.onclick = function(event){  // 点击空白处隐藏
+52           var event = event || window.event;
+53           var targetId = event.target ? event.target.id : event.srcElement.id;
+54           if(targetId != "demo"){
+55               $("demo").style.display = "none";
+56           }
+57       }
+58       function showBox(mousex,mousey,contentText) {  // 相关操作
+59              setTimeout(function(){
+60                  $("demo").style.display = "block";
+61                  $("demo").style.left = mousex + "px";
+62                  $("demo").style.top = mousey + "px";
+63                  $("demo").innerHTML = contentText;
+64              },300);
+65       }
+66   </script>
+
+1.5 动画原理
+  人走路的时候，   步长     
+ 动画的基本原理 ： 让盒子的 offsetLeft   +  步长     
+ 盒子 原来的位置  0    + 10       盒子现在的offsetLeft  10
+ 10 + 10  =  20   + 10  
+  原理： 
+<script>
+    //动画的基本原理   盒子的 offsetLeft  +  步长
+    var btn = document.getElementsByTagName("button")[0];
+    var div = document.getElementsByTagName("div")[0];
+    var timer = null;
+    btn.onclick = function() {
+       timer = setInterval(function() {
+           if(div.offsetLeft > 400)
+           {
+               clearInterval(timer);
+           }
+           div.style.left = div.offsetLeft + 10  + "px";
+       },20);
+    }
+</script>
+|-5|   = 5 
+
+Math.abs(-5)   取绝对值函数       js  就是 数学计算
+1.5.1 匀速运动封装函数
+1    function animate(obj,target){
+2           var speed = obj.offsetLeft < target ? 5 : -5;  // 用来判断 应该 +  还是 -
+3           obj.timer = setInterval(function() {
+4               var result = target - obj.offsetLeft; // 因为他们的差值不会超过5
+5               obj.style.left = obj.offsetLeft + speed + "px";
+6               if(Math.abs(result)<=5)  // 如果差值不小于 5 说明到位置了
+7               {
+8                   clearInterval(obj.timer);
+9                   obj.style.left = target + "px";  // 有5像素差距  我们直接跳转目标位置
+10               }
+11           },30)
+12       }
+ 
+
+
+    
+   
 
 
 </body>
